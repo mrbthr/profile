@@ -1,0 +1,314 @@
+<!doctype html>
+<!-- © 2026 Mar. Andre. All rights reserved. Use a different license (for example MIT or CC BY 4.0), change this line and the visible copyright text. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mar. Andre</title>
+<meta name="description" content="Software engineer in R&D with a background in independent philosophical research. Experimentation, causal inference, and prototypes that scale.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F4;--ink:#12192B;--muted:#4F5D78;--rule:#C5CEDB;--accent:#2A3FD0;
+  --desk:#14204F;--bar:#0B1230;--line:#26336A;--soft:#C9D2F5;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--desk);color:var(--ink);font-family:var(--serif);font-size:1.0625rem;line-height:1.55;overflow:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul{margin:0}
+a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+
+.desk{position:fixed;inset:0 0 2.75rem 0;overflow:hidden;background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:24px 24px}
+.icons{position:absolute;left:.5rem;top:.75rem;display:grid;gap:.4rem;width:6rem}
+.icon{display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:.4rem .2rem;border:0;border-radius:2px;background:none;color:#fff;font:400 .8rem/1.2 var(--sans);cursor:pointer}
+.icon:hover{background:rgba(255,255,255,.1)}
+.icon:focus-visible{outline-color:var(--soft)}
+
+
+.win{position:absolute;display:flex;flex-direction:column;background:var(--paper);border:1px solid #0A1030;box-shadow:6px 6px 0 rgba(5,8,24,.55);max-width:calc(100% - 1rem);max-height:calc(100% - 1rem);outline:none}
+.win[hidden],.win.min{display:none}
+.win.max{left:0!important;top:0!important;width:100%!important;max-width:none;height:100%!important;max-height:none}
+#about{width:36rem}#method{width:46rem}#experience{width:40rem}#contact{width:28rem}
+.tb{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.35rem .5rem .35rem .75rem;background:#5C6A94;color:#fff;cursor:grab;user-select:none;touch-action:none}
+.win.active .tb{background:var(--accent)}
+.tb h2{font:500 .85rem var(--sans)}
+.ctl{display:flex;gap:.25rem}
+.ctl button{width:1.6rem;height:1.6rem;border:1px solid rgba(255,255,255,.55);background:none;color:#fff;font:500 .95rem/1 var(--sans);cursor:pointer}
+.ctl button:hover{background:rgba(255,255,255,.2)}
+.ctl button:focus-visible{outline:2px solid #fff;outline-offset:1px}
+.body{overflow:auto;padding:1.5rem 1.75rem 1.75rem}
+.body h1{font-weight:400;font-size:clamp(1.9rem,4.2vw,2.75rem);line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+.body h1+p{margin-top:1.25rem;font-size:1.15rem}
+.sig{margin-top:1.5rem;font:400 .9rem var(--sans);color:var(--muted)}
+.intro{color:var(--muted)}
+
+
+.ledger{margin-top:1.5rem}
+.lh,.ledger li{display:grid;grid-template-columns:1fr 3rem 1fr;column-gap:1rem}
+.lh{padding-bottom:.6rem;font:400 .85rem var(--sans);color:var(--muted)}
+.lh span:first-child{text-align:right}
+.ledger ul{list-style:none;padding:0;border-bottom:1px solid var(--rule)}
+.ledger li{padding-block:1.1rem;border-top:1px solid var(--rule);line-height:1.35}
+.ph{text-align:right;font-style:italic;color:var(--muted)}
+.en{font-weight:500}
+.link{position:relative;height:1.35em}
+.bar-l{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--accent)}
+.link::before,.link::after{content:"";position:absolute;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--accent)}
+.link::before{left:0}
+.link::after{right:0}
+.m-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.js .ledger .bar-l{transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .ledger.in .bar-l{transform:scaleX(1)}
+.js .ledger.in li:nth-child(2) .bar-l{transition-delay:.15s}
+.js .ledger.in li:nth-child(3) .bar-l{transition-delay:.3s}
+
+
+.jobs{border-bottom:1px solid var(--rule)}
+.job{padding-block:1.25rem;border-top:1px solid var(--rule)}
+.job h3{font-weight:500;font-size:1.15rem;line-height:1.3;margin-bottom:.25rem}
+.btn{display:inline-block;margin-top:1.5rem;padding:.65rem 1.3rem;border:1px solid var(--accent);background:var(--accent);color:var(--paper);font:500 .95rem var(--sans);text-decoration:none;transition:background .2s,color .2s}
+.btn:hover{background:transparent;color:var(--accent)}
+#resume{width:46rem;height:34rem}
+.win .pdfbody{flex:1;min-height:0;display:flex;flex-direction:column;padding:0;overflow:hidden}
+.pdfnote{padding:.5rem .9rem;border-bottom:1px solid var(--rule);font:400 .85rem var(--sans);color:var(--muted)}
+.pdfbody iframe{flex:1;min-height:0;width:100%;border:0;background:#fff}
+.mail{display:inline-block;margin-top:1rem;font-size:1.45rem;letter-spacing:-.01em}
+
+
+.bar{position:fixed;left:0;right:0;bottom:0;height:2.75rem;display:flex;align-items:center;gap:.75rem;padding:0 .75rem;background:var(--bar);border-top:1px solid var(--line);font:400 .85rem var(--sans);color:var(--soft)}
+.brand{padding-right:.75rem;border-right:1px solid var(--line);font-weight:500;color:#fff}
+.tasks{display:flex;gap:.35rem;flex:1;overflow-x:auto}
+.task{padding:.3rem .75rem;border:1px solid var(--line);background:none;color:var(--soft);font:inherit;cursor:pointer}
+.task.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.task:focus-visible{outline-color:var(--soft);outline-offset:1px}
+.legal{white-space:nowrap;color:var(--soft)}
+
+
+#boot{display:none}
+.js #boot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;position:fixed;inset:0;z-index:999;background:#070B16;color:var(--soft);transition:opacity .45s}
+.js #boot.off{opacity:0;pointer-events:none}
+.bn{font-size:2.25rem;color:#fff;letter-spacing:-.01em}
+#bl{list-style:none;padding:0;width:min(21rem,80vw);min-height:6rem;font:400 .95rem var(--sans);color:#9FB0F5}
+#bl li{display:flex;justify-content:space-between;padding:.3rem 0;border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:reduce){
+  .js .ledger .bar-l{transform:none;transition:none}
+  .js #boot{transition:none}
+}
+@media (max-width:700px){
+  .legal{display:none}
+  .icons{grid-template-columns:repeat(2,1fr);width:calc(100% - 1rem)}
+  .win{inset:0!important;width:auto!important;height:auto!important;max-width:none;max-height:none;box-shadow:none}
+  .tb{cursor:default}
+  .ctl [data-act=max]{display:none}
+  .lh,.link{display:none}
+  .ledger li{display:block;padding:1.1rem 0 1.1rem 1rem;border-top:0;border-left:2px solid var(--accent);margin-top:1.1rem}
+  .ledger ul{border-bottom:0}
+  .ph{text-align:left}
+  .en{margin-top:.5rem}
+  .m-only{position:static;display:block;width:auto;height:auto;clip:auto;margin-bottom:.1rem;font:400 .8rem var(--sans);font-style:normal;color:var(--muted)}
+}
+</style>
+<noscript><style>body{overflow:auto}.desk{position:static}.icons,#boot{display:none}.win{display:flex!important;position:static;margin:1rem auto;width:auto!important}#resume{display:none!important}</style></noscript>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="doc" viewBox="0 0 32 40"><path d="M2 1h20l8 8v30H2z" fill="#EEF1F4"/><path d="M22 1v8h8z" fill="#9FB0F5"/></symbol></svg>
+
+<main class="desk" id="desk">
+  <nav class="icons" aria-label="Applications">
+    <button class="icon" data-open="about"><svg width="40" height="50" viewBox="0 0 32 40" aria-hidden="true"><use href="#doc"/><text x="16" y="29" text-anchor="middle" font-size="14" font-weight="500" fill="#2A3FD0" font-family="IBM Plex Sans,sans-serif">A</text></svg><span>About</span></button>
+    <button class="icon" data-open="method"><svg width="40" height="50" viewBox="0 0 32 40" aria-hidden="true"><use href="#doc"/><text x="16" y="29" text-anchor="middle" font-size="14" font-weight="500" fill="#2A3FD0" font-family="IBM Plex Sans,sans-serif">M</text></svg><span>Method</span></button>
+    <button class="icon" data-open="experience"><svg width="40" height="50" viewBox="0 0 32 40" aria-hidden="true"><use href="#doc"/><text x="16" y="29" text-anchor="middle" font-size="14" font-weight="500" fill="#2A3FD0" font-family="IBM Plex Sans,sans-serif">E</text></svg><span>Experience</span></button>
+    <button class="icon" data-open="contact"><svg width="40" height="50" viewBox="0 0 32 40" aria-hidden="true"><use href="#doc"/><text x="16" y="29" text-anchor="middle" font-size="14" font-weight="500" fill="#2A3FD0" font-family="IBM Plex Sans,sans-serif">@</text></svg><span>Contact</span></button>
+  </nav>
+
+  <section class="win" id="about" role="dialog" aria-labelledby="t-about" tabindex="-1" hidden>
+    <header class="tb"><h2 id="t-about">About</h2><div class="ctl"><button data-act="min" aria-label="Minimize">&minus;</button><button data-act="max" aria-label="Maximize">&#9633;</button><button data-act="close" aria-label="Close">&times;</button></div></header>
+    <div class="body">
+      <h1>I turn ambiguous questions into systems that run.</h1>
+      <p>I’m a Programmer who came to STEM from independent philosophical research. My work sits between abstract inquiry and practical execution by advancing frontier technical concepts that don’t yet have a clear shape and turn subject into working prototypes and scalable systems.</p>
+      <p class="sig">Mar. Andre<br>© 2026. All rights reserved.</p>
+    </div>
+  </section>
+
+  <section class="win" id="method" role="dialog" aria-labelledby="t-method" tabindex="-1" hidden>
+    <header class="tb"><h2 id="t-method">Method</h2><div class="ctl"><button data-act="min" aria-label="Minimize">&minus;</button><button data-act="max" aria-label="Maximize">&#9633;</button><button data-act="close" aria-label="Close">&times;</button></div></header>
+    <div class="body">
+      <p class="intro">Self-directed study under faculty supervision intructed to work through unstructured problems, question underlying assumptions, and build rigorous logical frameworks from scratch.</p>
+      <div class="ledger">
+        <div class="lh" aria-hidden="true"><span>In Research</span><span></span><span></span></div>
+        <ul>
+          <li><p class="ph"><span class="m-only"></span>Questioning the assumptions beneath a problem</p><span class="link" aria-hidden="true"><span class="bar-l"></span></span><p class="en"><span class="m-only"></span>Evokes a precision-engineered chamber stripped of echoes and external interference, allowing only pure, direct signal to be measured. boundary engineered specifically to keep confounding forces indeed delicate experiments can run uncorrupted.</p></li>
+          <li><p class="ph"><span class="m-only"></span>Building rigorous logical frameworks from scratch</p><span class="link" aria-hidden="true"><span class="bar-l"></span></span><p class="en"><span class="m-only"></span>Establish and enforce unified experimentation governance across cross-functional product teams guarantee statistical rigor and unbiased determination.</p></li>
+          <li><p class="ph"><span class="m-only"></span>Working through unstructured, open-ended problems</p><span class="link" aria-hidden="true"><span class="bar-l"></span></span><p class="en"><span class="m-only"></span>Architected standardized ingestion and validation pipelines that turn fragmented sensor streams into traceable, reproducible data—enabling disparate climate models and physical assets to speak a common language.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="win" id="experience" role="dialog" aria-labelledby="t-experience" tabindex="-1" hidden>
+    <header class="tb"><h2 id="t-experience">Experience</h2><div class="ctl"><button data-act="min" aria-label="Minimize">&minus;</button><button data-act="max" aria-label="Maximize">&#9633;</button><button data-act="close" aria-label="Close">&times;</button></div></header>
+    <div class="body">
+      <div class="jobs">
+        <article class="job"><h3>Experimentation Frameworks</h3><p>Pioneered lean architecture of empirical inquiry designed to isolate true causality from the illusion of correlation, stripping away the noise of hidden variables.</p></article>
+        <article class="job"><h3>Statistical Testing</h3><p>Led end-to-end statistical testing aligned with empirical data distributions, balancing sample size constraints, statistical power, and risk thresholds across experimentation cycles.</p></article>
+        <article class="job"><h3>Workflow Standardization</h3><p>In an asynchronous setting, the formalized adaptive protocol passes end-to-end uniform criteria by satisfying its obligations with high probability.</p></article>
+      </div>
+      
+      <a class="btn" href="fil.pdf" data-pdf>View PDF</a>
+    </div>
+  </section>
+
+  <section class="win" id="contact" role="dialog" aria-labelledby="t-contact" tabindex="-1" hidden>
+    <header class="tb"><h2 id="t-contact">Contact</h2><div class="ctl"><button data-act="min" aria-label="Minimize">&minus;</button><button data-act="max" aria-label="Maximize">&#9633;</button><button data-act="close" aria-label="Close">&times;</button></div></header>
+    <div class="body">
+      <p>Have a problem without a clear shape yet? That’s the kind I like best. Tell me what you’re trying to figure out.</p>
+    
+      <a class="mail" href="mailto:you@example.com">you@example.com</a>
+    </div>
+  </section>
+
+  <section class="win" id="resume" role="dialog" aria-labelledby="t-resume" tabindex="-1" hidden>
+    <header class="tb"><h2 id="t-resume">Resume</h2><div class="ctl"><button data-act="min" aria-label="Minimize">&minus;</button><button data-act="max" aria-label="Maximize">&#9633;</button><button data-act="close" aria-label="Close">&times;</button></div></header>
+    <div class="body pdfbody">
+      <p class="pdfnote">Not displaying properly? <a href="resume.pdf" download>Download the PDF</a>.</p>
+      <iframe title="Resume PDF" data-src="resume.pdf"></iframe>
+    </div>
+  </section>
+</main>
+
+<footer class="bar">
+  <span class="brand">MAOS</span>
+  <div class="tasks" id="tasks"></div>
+  <span class="legal">© 2026 Mar. Andre. All rights reserved.</span>
+  <span id="clock"></span>
+</footer>
+
+<div id="boot" aria-hidden="true"><p class="bn">MAOS</p><ul id="bl"></ul></div>
+
+<script>
+(function(){
+var desk=document.getElementById('desk'),tasks=document.getElementById('tasks'),clock=document.getElementById('clock'),
+    boot=document.getElementById('boot'),small=matchMedia('(max-width:700px)'),wins={},z=10,n=0;
+
+function activate(w){
+  Object.keys(wins).forEach(function(k){
+    var o=wins[k],on=o.w===w;
+    o.w.classList.toggle('active',on);o.b.classList.toggle('on',on);
+  });
+}
+function focusWin(w){
+  activate(w);w.style.zIndex=++z;w.focus({preventScroll:true});
+}
+function top(){
+  var best=null;
+  Object.keys(wins).forEach(function(k){
+    var w=wins[k].w;
+    if(!w.hidden&&!w.classList.contains('min')&&(!best||(+w.style.zIndex||0)>(+best.style.zIndex||0)))best=w;
+  });
+  if(best)focusWin(best);else activate(null);
+}
+function place(o){
+  var w=o.w;
+  if(small.matches||o.placed)return;
+  var x=Math.min(120+n*34,Math.max(8,desk.clientWidth-w.offsetWidth-8));
+  var y=Math.min(20+n*34,Math.max(8,desk.clientHeight-w.offsetHeight-8));
+  w.style.left=x+'px';w.style.top=y+'px';o.placed=true;n=(n+1)%6;
+}
+function show(w){
+  var o=wins[w.id];
+  w.hidden=false;w.classList.remove('min');place(o);o.b.hidden=false;focusWin(w);
+  if(w.id==='method'){
+    var l=w.querySelector('.ledger');
+    l.classList.remove('in');
+    setTimeout(function(){l.classList.add('in')},80);
+  }
+}
+function close(w){w.hidden=true;wins[w.id].b.hidden=true;w.classList.remove('active');top()}
+function minimize(w){w.classList.add('min');w.classList.remove('active');wins[w.id].b.classList.remove('on');top()}
+
+function drag(w){
+  var tb=w.querySelector('.tb'),dx=0,dy=0,on=false;
+  tb.addEventListener('pointerdown',function(e){
+    if(small.matches||e.target.closest('button')||w.classList.contains('max'))return;
+    on=true;dx=e.clientX-w.offsetLeft;dy=e.clientY-w.offsetTop;tb.setPointerCapture(e.pointerId);
+  });
+  tb.addEventListener('pointermove',function(e){
+    if(!on)return;
+    w.style.left=Math.max(0,Math.min(e.clientX-dx,desk.clientWidth-w.offsetWidth))+'px';
+    w.style.top=Math.max(0,Math.min(e.clientY-dy,desk.clientHeight-w.offsetHeight))+'px';
+  });
+  tb.addEventListener('pointerup',function(){on=false});
+  tb.addEventListener('pointercancel',function(){on=false});
+}
+
+document.querySelectorAll('.win').forEach(function(w){
+  var b=document.createElement('button');
+  b.className='task';b.hidden=true;b.textContent=w.querySelector('h2').textContent;
+  b.addEventListener('click',function(){
+    if(w.classList.contains('active'))minimize(w);else show(w);
+  });
+  tasks.appendChild(b);
+  wins[w.id]={w:w,b:b,placed:false};
+  w.addEventListener('pointerdown',function(){focusWin(w)});
+  w.addEventListener('keydown',function(e){if(e.key==='Escape')close(w)});
+  w.querySelector('.ctl').addEventListener('click',function(e){
+    var a=e.target.closest('button');
+    if(!a)return;
+    if(a.dataset.act==='close')close(w);
+    else if(a.dataset.act==='min')minimize(w);
+    else w.classList.toggle('max');
+  });
+  drag(w);
+});
+document.querySelectorAll('[data-open]').forEach(function(b){
+  b.addEventListener('click',function(){show(wins[b.dataset.open].w)});
+});
+document.querySelectorAll('[data-pdf]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    var f=wins.resume.w.querySelector('iframe');
+    if(!f.getAttribute('src'))f.setAttribute('src',f.dataset.src);
+    show(wins.resume.w);
+  });
+});
+
+function tick(){
+  var d=new Date();
+  clock.textContent=d.toLocaleDateString([],{weekday:'short',day:'numeric',month:'short'})+', '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+tick();setInterval(tick,20000);
+
+function start(){show(wins.about.w)}
+if(boot&&matchMedia('(prefers-reduced-motion:reduce)').matches){boot.remove();start()}
+else if(boot){
+  var items=['Questioning assumptions','Building the framework','Starting the prototype'],
+      list=document.getElementById('bl'),i=0,finished=false,t;
+  var finish=function(){
+    if(finished)return;
+    finished=true;clearInterval(t);boot.classList.add('off');
+    setTimeout(function(){boot.remove()},450);start();
+  };
+  t=setInterval(function(){
+    if(i<items.length){
+      var li=document.createElement('li');
+      li.innerHTML='<span>'+items[i]+'</span><span>done</span>';
+      list.appendChild(li);i++;
+    }else{clearInterval(t);setTimeout(finish,350)}
+  },380);
+  boot.addEventListener('click',finish);
+  document.addEventListener('keydown',finish,{once:true});
+}else start();
+})();
+</script>
+</body>
+  </html>
+                                                                                                                
