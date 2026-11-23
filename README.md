@@ -1,3 +1,1 @@
-No license or right to use this code for any personal, academic, or commercial
-purpose is granted herein. Violators will be prosecuted to the fullest extent
-permitted under applicable copyright and intellectual property laws.
+[![DOI](https://zenodo.org/badge/1469174527.svg)](https://doi.org/10.5281/zenodo.24480909)
